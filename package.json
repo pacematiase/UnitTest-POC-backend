@@ -1,0 +1,24 @@
+{
+  "name": "unittest-poc",
+  "type": "module",
+  "version": "1.0.0",
+  "description": "Proof of concept project for unitary test alternatives",
+  "main": "app.js",
+  "scripts": {
+    "test": "jest",
+    "run": "node ./src/app.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/core": "^7.28.0",
+    "@babel/preset-env": "^7.28.0",
+    "babel-jest": "^30.0.5",
+    "jest": "^30.0.5"
+  },
+  "dependencies": {
+    "express": "^5.1.0",
+    "mysql2": "^3.14.2",
+    "sequelize": "^6.37.7"
+  }
+}
