@@ -1,5 +1,5 @@
-import { expectedRanking } from './expectedRanking.js';
-import { getQueueEntriesRanking } from '../queueEntry-entity.js';
+import { expectedRanking } from '../expectedRanking.js';
+import { getQueueEntriesRanking } from '../../queueEntry-entity.js';
 
 describe('test QueueEntrys', () => {
   it('Should rank the items as expected', async () => {

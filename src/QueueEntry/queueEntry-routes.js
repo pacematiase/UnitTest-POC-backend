@@ -5,7 +5,7 @@ import { add, findAll, getRanking, callNext } from './queueEntry-controller.js';
 
 const queueEntryRouter = Router();
 
-queueEntryRouter.put('/', add);
+queueEntryRouter.post('/', add);
 
 queueEntryRouter.get('/', findAll);
 
