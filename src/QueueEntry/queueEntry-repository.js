@@ -12,6 +12,12 @@ export default class QueueEntryRepository {
     return res.dataValues;
   }
 
+  async updateType(queueEntry, queueEntryType) {
+    await queueEntry.update({ queueEntryType: queueEntryType });
+    console.log(JSON.stringify(queueEntry));
+    return queueEntry;
+  }
+
   async getAll() {
     return queueEntryModel.findAll();
   }

@@ -10,12 +10,12 @@ import {
 export async function add(req, res) {
   try {
     const item = {
-      queueEntryDni: req.body.queueEntryDni,
-      queueEntryType: req.body.queueEntryType,
+      queueEntryDni: req.body?.queueEntryDni,
+      queueEntryType: req.body?.queueEntryType,
     };
     const result = await addQueueEntry(item);
     res.status(200).json({
-      message: 'Queue entry successfully created',
+      message: 'Upsert was successful',
       data: result,
     });
   } catch (err) {
@@ -28,10 +28,10 @@ export async function add(req, res) {
 
 export async function findAll(req, res) {
   try {
-    const queueEntrys = await findAllQueueEntries();
+    const queueEntries = await findAllQueueEntries();
     res.status(200).json({
       message: 'Queue entries successfully retrieved',
-      data: queueEntrys,
+      data: queueEntries,
     });
   } catch (err) {
     res.status(400).json({
@@ -43,10 +43,10 @@ export async function findAll(req, res) {
 
 export async function getRanking(req, res) {
   try {
-    const queueEntrys = await getQueueEntriesRanking();
+    const queueEntries = await getQueueEntriesRanking();
     res.status(200).json({
       message: 'Queue ranking successfully retrieved',
-      data: queueEntrys,
+      data: queueEntries,
     });
   } catch (err) {
     res.status(400).json({

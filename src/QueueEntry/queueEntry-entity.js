@@ -2,7 +2,7 @@
 import QueueEntryRepository from './queueEntry-repository.js';
 import { getCurrentDate, isNaturalNumber } from '../Shared/utils.js';
 
-function createNewQueueEntry(queueEntryDni, queueEntryType) {
+export function createNewQueueEntry(queueEntryDni, queueEntryType) {
   const queueEntry = {
     queueEntryDate: getCurrentDate(),
     queueEntryDni: queueEntryDni,
@@ -11,16 +11,16 @@ function createNewQueueEntry(queueEntryDni, queueEntryType) {
   return queueEntry;
 }
 
-function rankQueueEntrys(queueEntrys) {
-  const sortedQueueEntrys = queueEntrys.toSorted((a, b) => {
+export function rankQueueEntries(queueEntries) {
+  const sortedQueueEntries = queueEntries.toSorted((a, b) => {
     return a.queueEntryDate - b.queueEntryDate;
   });
-  return sortedQueueEntrys;
+  return sortedQueueEntries;
 }
 
-async function getNextQueueEntry(queueEntrys) {
-  const sortedQueueEntrys = rankQueueEntrys(queueEntrys);
-  return sortedQueueEntrys[0];
+export async function getNextQueueEntry(queueEntries) {
+  const sortedQueueEntries = rankQueueEntries(queueEntries);
+  return sortedQueueEntries[0];
 }
 
 export async function addQueueEntry(item) {
@@ -34,6 +34,8 @@ export async function addQueueEntry(item) {
     if (queueEntry === null) {
       queueEntry = createNewQueueEntry(item.queueEntryDni, item.queueEntryType);
       await repository.add(queueEntry);
+    } else {
+      queueEntry = repository.updateType(queueEntry, item.queueEntryType);
     }
     return queueEntry;
   } else {
@@ -48,24 +50,24 @@ export async function addQueueEntry(item) {
 export async function findAllQueueEntries() {
   const repository = new QueueEntryRepository();
 
-  const queueEntrys = await repository.getAll();
+  const queueEntries = await repository.getAll();
 
-  return queueEntrys;
+  return queueEntries;
 }
 
 export async function getQueueEntriesRanking() {
   const repository = new QueueEntryRepository();
-  const queueEntrys = await repository.getAll();
+  const queueEntries = await repository.getAll();
 
-  const sortedQueueEntrys = rankQueueEntrys(queueEntrys);
+  const sortedQueueEntries = rankQueueEntries(queueEntries);
 
-  return sortedQueueEntrys;
+  return sortedQueueEntries;
 }
 
 export async function callNextQueueEntry() {
   const repository = new QueueEntryRepository();
-  const queueEntrys = await repository.getAll();
-  const queueEntry = await getNextQueueEntry(queueEntrys);
+  const queueEntries = await repository.getAll();
+  const queueEntry = await getNextQueueEntry(queueEntries);
   if (queueEntry !== undefined) {
     const resDelete = await repository.deleteOne(queueEntry.queueEntryDni);
     return queueEntry;
