@@ -2,6 +2,16 @@
 import QueueEntryRepository from './queueEntry-repository.js';
 import { getCurrentDate, isNaturalNumber } from '../Shared/utils.js';
 
+export const queueEntryTypes = {
+  regular: 1,
+  priority: 2,
+  vip: 3,
+};
+
+export function isValidqueueEntryType(value) {
+  return Object.values(queueEntryTypes).includes(value);
+}
+
 export function createNewQueueEntry(queueEntryDni, queueEntryType) {
   const queueEntry = {
     queueEntryDate: getCurrentDate(),
@@ -28,7 +38,7 @@ export async function addQueueEntry(item) {
   if (
     isNaturalNumber(item.queueEntryDni) &&
     isNaturalNumber(item.queueEntryType) &&
-    item.queueEntryType < 4
+    isValidqueueEntryType(item.queueEntryType)
   ) {
     let queueEntry = await repository.getOne(item.queueEntryDni);
     if (queueEntry === null) {

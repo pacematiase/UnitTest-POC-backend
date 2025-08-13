@@ -1,5 +1,6 @@
 import { expectedRanking } from '../test/expectedTestResults.js';
 import {
+  queueEntryTypes,
   createNewQueueEntry,
   getQueueEntriesRanking,
 } from '../queueEntry-entity.js';
@@ -7,6 +8,10 @@ import { getCurrentDate } from '../../Shared/utils.js';
 
 jest.mock('../queueEntry-repository');
 jest.mock('../../Shared/utils.js');
+
+describe('Queue entry types should have not changed', () => {
+  expect(queueEntryTypes).toMatchSnapshot();
+});
 
 describe('test QueueEntryEntity', () => {
   it('Should create a new queue entry object', async () => {
