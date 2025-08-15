@@ -21,9 +21,17 @@ export function createNewQueueEntry(queueEntryDni, queueEntryType) {
   return queueEntry;
 }
 
+export function scoreQueueEntry(queueEntry) {
+  const initialDate = new Date('1900-01-01T00:00:00.000Z');
+  score = Math.floor((queueEntry.queueEntryDate - initialDate) / 60000);
+  score -= queueEntry.queueEntryType === queueEntryTypes.priority ? 5 : 0;
+  score -= queueEntry.queueEntryType === queueEntryTypes.vip ? 10 : 0;
+  return score;
+}
+
 export function rankQueueEntries(queueEntries) {
   const sortedQueueEntries = queueEntries.toSorted((a, b) => {
-    return a.queueEntryDate - b.queueEntryDate;
+    return scoreQueueEntry(a) - scoreQueueEntry(b);
   });
   return sortedQueueEntries;
 }
