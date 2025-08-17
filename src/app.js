@@ -9,7 +9,7 @@ await sequelize.sync({ alter: true });
 const app = express();
 
 app.use(express.json());
-app.use(cors({ origin: 'http://localhost' }));
+app.use(cors({ origin: 'http://localhost:3001' }));
 
 app.get('/', (req, res) => {
   res.send('Express is working');
