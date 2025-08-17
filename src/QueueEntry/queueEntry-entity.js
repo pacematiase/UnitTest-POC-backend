@@ -23,9 +23,9 @@ export function createNewQueueEntry(queueEntryDni, queueEntryType) {
 
 export function scoreQueueEntry(queueEntry) {
   const initialDate = new Date('1900-01-01T00:00:00.000Z');
-  score = Math.floor((queueEntry.queueEntryDate - initialDate) / 60000);
-  score -= queueEntry.queueEntryType === queueEntryTypes.priority ? 5 : 0;
-  score -= queueEntry.queueEntryType === queueEntryTypes.vip ? 10 : 0;
+  let score = (new Date(queueEntry.queueEntryDate) - initialDate);
+  score -= queueEntry.queueEntryType === queueEntryTypes.priority ? 5 * 60000 : 0;
+  score -= queueEntry.queueEntryType === queueEntryTypes.vip ? 10 * 60000 : 0;
   return score;
 }
 
