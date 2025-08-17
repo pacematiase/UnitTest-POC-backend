@@ -10,7 +10,9 @@ jest.mock('../queueEntry-repository');
 jest.mock('../../Shared/utils.js');
 
 describe('Queue entry types should have not changed', () => {
-  expect(queueEntryTypes).toMatchSnapshot();
+  it('Should match the snapshot', () => {
+    expect(queueEntryTypes).toMatchSnapshot();
+  })
 });
 
 describe('test QueueEntryEntity', () => {
